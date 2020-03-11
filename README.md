@@ -8,4 +8,4 @@ Day of the week from Julian Day (Equation)
 
 Julian Day to Date (RPN and ALGEBRAIC Program)
 
-lines starting with # are comments, ignore them while entering the programsCrea
+lines starting with # are comments, ignore them while entering the programs
