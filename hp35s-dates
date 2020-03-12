@@ -1,4 +1,17 @@
-#Julian Day Equation
+#Algebraic mode
+LBL D 
+ALG 
+REGX->J 
+J+1363+IP((IP((4*J+274277)/146097)*3)/4)->F 
+4*F+3->E 
+IP(RMDR(E,1461)/4)->G 
+5*G+2->H 
+IP(RMDR(H,153)/5)+1->D 
+RMDR(IP(H/153)+2,12)+1->m 
+IP(E/1461)-4716+IP((14-M)/12)->Y 
+Y+M/100+D/10000 
+RPN 
+RTN #Julian Day Equation
 #Y=Year
 #M=Month
 #D=Day
@@ -77,7 +90,7 @@ RTN
 #Answer also in REGX as YYYY.MMDD
 #J is filled with the Julian Day
 
-#RPN mode
+#RPN mode (Fastest but largest footprint)
 LBL D 
 STO J 
 4 
@@ -157,7 +170,8 @@ RCL D
 + 
 RTN 
 
-#Algebraic mode
+#Date from Julian Day
+#Algebraic mode (slower than RPN)
 LBL D 
 ALG 
 REGX->J 
@@ -170,6 +184,20 @@ RMDR(IP(H/153)+2,12)+1->m
 IP(E/1461)-4716+IP((14-M)/12)->Y 
 Y+M/100+D/10000 
 RPN 
+RTN 
+
+#Date from Julian Day
+#Hybrid mode (RPN with Equations, smallest footprint, barely slower)
+LBL D 
+STO J 
+EQN J+1363+IP((IP((4*J+274277)/146097)*3)/4)->F 
+EQN 4*F+3->E 
+EQN IP(RMDR(E,1461)/4)->G 
+EQN 5*G+2->H 
+EQN IP(RMDR(H,153)/5)+1->D 
+EQN RMDR(IP(H/153)+2,12)+1->m 
+EQN IP(E/1461)-4716+IP((14-M)/12)->Y 
+EQN Y+M/100+D/10000  
 RTN 
 
 #Day of the week from Julian Day
