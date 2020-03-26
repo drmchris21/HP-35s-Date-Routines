@@ -4,13 +4,12 @@
 #D=Day
 #The result goes to REGX
 
-IP(1461*(Y+4800+IP((M-14)/12))/4)+ 
-IP(367*(M-2-12*IP((M-14)/12))/12)- 
-IP(3*(IP((Y+4900+IP((M-14)/12))/100))/4)+ 
-D-32075 
+IP(1461*(Y+4800+IP((M-14)/12))/4)+IP(367*(M-2-12*IP((M-14)/12))/12)- 
+IP(3*(IP((Y+4900+IP((M-14)/12))/100))/4)+D-32075 
 
 #Julian Day Program (RPN version)
 #The result goes to REGX
+#Input in REGX as YYYY.MMDD
 
 J001	LBL J
 J002	ENTER
@@ -82,6 +81,7 @@ J066	RTN
 #Julian Day Program (EQN version)
 #The result goes to REGX
 #Slower but smaller footprint
+#Input in REGX as YYYY.MMDD
 
 J001	LBL J
 J002	ENTER
