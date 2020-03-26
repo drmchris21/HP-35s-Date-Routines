@@ -9,67 +9,101 @@ IP(367*(M-2-12*IP((M-14)/12))/12)-
 IP(3*(IP((Y+4900+IP((M-14)/12))/100))/4)+ 
 D-32075 
 
-#Julian Day Program (RPN)
-#The result goes to REGX and also to J
+#Julian Day Program (RPN version)
+#The result goes to REGX
 
-LBL J 
-RCL M 
-14 
-- 
-12 
-/ 
-IP 
-4800 
-RCL Y 
-+ 
-+ 
-1461 
-* 
-4 
-/ 
-IP 
-RCL M 
-14 
-- 
-12 
-/ 
-IP 
-2 
-RCL M 
-- 
-- 
-367 
-* 
-12 
-/ 
-IP 
-+ 
-RCL M 
-14 
-- 
-12 
-/ 
-IP 
-4900 
-RCL Y 
-+ 
-+ 
-100 
-/ 
-IP 
-3 
-* 
-4 
-/ 
-IP 
-+/- 
-+ 
-RCL D 
-+ 
-32075 
-- 
-STO J 
-RTN 
+J001	LBL J
+J002	ENTER
+J003	ENTER
+J004	IP
+J005	STO Y
+J006	RDN
+J007	FP
+J008	100
+J009	*
+J010	IP
+J011	STO M
+J012	RDN
+J013	100
+J014	*
+J015	FP
+J016	100
+J017	*
+J018	STO D
+J019	-14
+J020	RCL +M
+J021	12
+J022	/
+J023	IP
+J024	4600
+J025	RCL +Y
+J026	+
+J027	1461
+J028	*
+J029	4
+J030	/
+J031	IP
+J032	-14
+J033	RCL +M
+J034	12
+J035	/
+J036	IP
+J037	2
+J038	RCL -M
+J039	-
+J040	367
+J041	*
+J042	12
+J043	/
+J044	IP
+J045	+
+J046	-14
+J047	RCL +M
+J048	12
+J049	/
+J050	IP
+J051	4900
+J052	RCL +Y
+J053	+
+J054	100
+J055	/
+J056	IP
+J057	3
+J058	*
+J059	4
+J060	/
+J061	IP
+J062	-
+J063	RCL +D
+J064	32075
+J065	-
+J066	RTN
+
+#Julian Day Program (EQN version)
+#The result goes to REGX
+#Slower but smaller footprint
+
+J001	LBL J
+J002	ENTER
+J003	ENTER
+J004	IP
+J005	STO Y
+J006	RDN
+J007	FP
+J008	100
+J009	*
+J010	IP
+J011	STO M
+J012	RDN
+J013	100
+J014	*
+J015	FP
+J016	100
+J017	*
+J018	STO D
+J019	EQN IP(1461*(Y+4800+IP((M-14)/12))/4)+IP(367*(M-2-12*IP((M-14)/12))/12)-
+      IP(3*(IP((Y+4900+IP((M-14)/12))/100))/4)+D-32075
+J020	RTN
 
 #Date from Julian Day
 #It uses F,G,H,E
@@ -79,116 +113,114 @@ RTN
 #
 #RPN mode (Fastest but largest footprint)
 
-LBL D 
-STO J 
-4 
-* 
-274277 
-+ 
-146097 
-/ 
-IP 
-3 
-* 
-4 
-/ 
-IP 
-38 
-- 
-1401 
-+ 
-RCL J 
-+ 
-STO F 
-4 
-* 
-3 
-+ 
-STO E 
-1461 
-RMDR 
-4 
-/ 
-IP 
-STO G 
-5 
-* 
-2 
-+ 
-STO H 
-153 
-RMDR 
-5 
-/ 
-IP 
-1 
-+ 
-STO D 
-RCL H 
-153 
-/ 
-IP 
-2 
-+ 
-12 
-RMDR 
-1 
-+ 
-STO M 
-RCL E 
-1461 
-/ 
-IP 
-4716 
-- 
-RCL M 
-- 
-12 
-/ 
-IP 
-+ 
-STO Y 
-RCL M 
-100 
-/ 
-+ 
-RCL D 
-10000 
-/ 
-+ 
-RTN 
+D001	LBL D 
+D002	STO J 
+D003	4
+D004	* 
+D005	274277
+D006	+ 
+D007	146097
+D008	/ 
+D009	IP 
+D010	3
+D011	* 
+D012	4
+D013	/ 
+D014	IP 
+D015	38
+D016	- 
+D017	1401
+D018	+ 
+D019	RCL +J 
+D020	STO F 
+D021	4
+D022	* 
+D023	3
+D024	+ 
+D025	STO E 
+D026	1461
+D027	RMDR 
+D028	4
+D029	/ 
+D030	IP 
+D031	STO G 
+D032	5
+D033	* 
+D034	2
+D035	+ 
+D036	STO H 
+D037	153
+D038	RMDR 
+D039	5
+D040	/ 
+D041	IP 
+D042	1
+D043	+ 
+D044	STO D 
+D045	RCL H 
+D046	153
+D047	/ 
+D048	IP 
+D049	2
+D050	+ 
+D051	12
+D052	RMDR 
+D053	1
+D054	+ 
+D055	STO M 
+D056	RCL E 
+D057	1461
+D058	/ 
+D059	IP 
+D060	4716
+D061	- 
+D062	RCL -M 
+D063	12
+D064	/ 
+D065	IP 
+D066	+ 
+D067	STO Y 
+D068	RCL M 
+D069	100
+D070	/ 
+D071	+ 
+D072	RCL D 
+D073	10000
+D074	/ 
+D075	+ 
+D076	RTN 
 
 #Date from Julian Day
 #Algebraic mode (slower than RPN)
 
-LBL D 
-ALG 
-REGX->J 
-J+1363+IP((IP((4*J+274277)/146097)*3)/4)->F 
-4*F+3->E 
-IP(RMDR(E,1461)/4)->G 
-5*G+2->H 
-IP(RMDR(H,153)/5)+1->D 
-RMDR(IP(H/153)+2,12)+1->m 
-IP(E/1461)-4716+IP((14-M)/12)->Y 
-Y+M/100+D/10000 
+D001  LBL D 
+D002  ALG 
+D003  REGX STO J 
+D004  J+1363+IP((IP((4*J+274277)/146097)*3)/4) STO F 
+D005  4*F+3 STO E 
+D006  IP(RMDR(E,1461)/4) STO G 
+D007  5*G+2 STO H 
+DOO8  IP(RMDR(H,153)/5)+1 STO D 
+D009  RMDR(IP(H/153)+2,12)+1 STO M 
+D010  IP(E/1461)-4716+IP((14-M)/12) STO Y 
+D011  Y+M/100+D/10000 
 RPN 
 RTN 
 
 #Date from Julian Day
 #Hybrid mode (RPN with Equations, smallest footprint, barely slower)
 
-LBL D 
-STO J 
-EQN J+1363+IP((IP((4*J+274277)/146097)*3)/4)->F 
-EQN 4*F+3->E 
-EQN IP(RMDR(E,1461)/4)->G 
-EQN 5*G+2->H 
-EQN IP(RMDR(H,153)/5)+1->D 
-EQN RMDR(IP(H/153)+2,12)+1->m 
-EQN IP(E/1461)-4716+IP((14-M)/12)->Y 
-EQN Y+M/100+D/10000  
-RTN 
+D001  LBL D 
+D002  STO J 
+D003  EQN J+1363+IP((IP((4*J+274277)/146097)*3)/4)->F 
+D004  EQN 4*F+3->E 
+D005  EQN IP(RMDR(E,1461)/4)->G 
+D006  EQN 5*G+2->H 
+D007  EQN IP(RMDR(H,153)/5)+1->D 
+D008  EQN RMDR(IP(H/153)+2,12)+1->m 
+D009  EQN IP(E/1461)-4716+IP((14-M)/12)->Y 
+D010  EQN Y+M/100+D/10000  
+D011  RTN 
 
 #Day of the week from Julian Day
 #Equation
